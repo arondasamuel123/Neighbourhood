@@ -16,7 +16,12 @@ class User(AbstractUser):
     neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     role_type = models.CharField(max_length=2, choices=ROLE_TYPE_CHOICES, default=USER)
     
-    
+
+class Profile(models.Model):
+    bio = models.TextField()
+    neighbourhood_name = models.CharField(max_length=20)
+    general_location = models.CharField(max_length=20)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     
 class Neighbourhood(models.Model):
     neighbourhood_name = models.CharField(max_length=20)
