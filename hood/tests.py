@@ -52,4 +52,11 @@ class NeighbourhoodTestCase(TestCase):
         hoods = Neighbourhood.objects.all()
         self.assertTrue(len(hoods) > 0)
         
+    def test_update_hood_occupants(self):
+        self.admin_user.save_admin()
+        self.hood_one.save_hood()
+        self.hood_one.get_hood_id(self.hood_one.id)
+        self.hood_one.update_occupants("200")
+        self.assertTrue(self.hood_one.occupants=="200")
+        
     

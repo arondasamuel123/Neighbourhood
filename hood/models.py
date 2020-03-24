@@ -36,6 +36,9 @@ class Neighbourhood(models.Model):
     def get_hood_id(cls, id):
         hood = Neighbourhood.objects.get(pk=id)
         return hood
+    def update_occupants(self, occupants):
+        self.occupants = occupants
+        self.save()
 class Profile(models.Model):
     bio = models.TextField()
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
