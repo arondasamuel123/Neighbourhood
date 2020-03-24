@@ -39,5 +39,17 @@ class Business(models.Model):
     business_email = models.CharField(max_length=20)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Department(models.Model):
+    HEALTH = 'health'
+    AUTHORITIES = 'authorities'
+    DEPT_TYPE_CHOICES = [
+        (HEALTH, 'health'),
+        (AUTHORITIES, 'authorities'),
+    ]
+    contact_number = models.IntegerField()
+    neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    dept_type = models.CharField(max_length=2, choices=DEPT_TYPE_CHOICES, default=HEALTH)
+     
     
     
