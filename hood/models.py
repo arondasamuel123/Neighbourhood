@@ -13,22 +13,21 @@ class User(AbstractUser):
         (USER, 'USER')
     ]
     name = models.CharField(max_length=20)
-    neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    role_type = models.CharField(max_length=2, choices=ROLE_TYPE_CHOICES, default=USER)
+    role_type = models.CharField(max_length=20, choices=ROLE_TYPE_CHOICES, default=USER)
     
-
-class Profile(models.Model):
-    bio = models.TextField()
-    neighbourhood_name = models.CharField(max_length=20)
-    general_location = models.CharField(max_length=20)
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    def save_sadmin(self):
+        self.save()
     
 class Neighbourhood(models.Model):
     neighbourhood_name = models.CharField(max_length=20)
     neighbourhood_location = models.CharField(max_length=20)
     occupants = models.IntegerField()
     admin_id = models.ForeignKey(User, on_delete=models.CASCADE)
-
+class Profile(models.Model):
+    bio = models.TextField()
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    general_location = models.CharField(max_length=20)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
 class Post(models.Model):
     post = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -48,8 +47,13 @@ class Department(models.Model):
         (AUTHORITIES, 'authorities'),
     ]
     contact_number = models.IntegerField()
-    neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
-    dept_type = models.CharField(max_length=2, choices=DEPT_TYPE_CHOICES, default=HEALTH)
+    neighbourhood= models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
+    dept_type = models.CharField(max_length=20, choices=DEPT_TYPE_CHOICES, default=HEALTH)
+    
+
+
+
+
      
     
     
