@@ -47,6 +47,9 @@ class Profile(models.Model):
     
     def save_profile(self):
         self.save()
+    def delete_profile(self):
+        self.delete()
+        
 class Post(models.Model):
     post = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
