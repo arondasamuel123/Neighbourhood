@@ -19,6 +19,8 @@ class User(AbstractUser):
         self.save()
     def save_admin(self):
         self.save()
+    def save_user(self):
+        self.save()
         
     
 class Neighbourhood(models.Model):
@@ -26,6 +28,8 @@ class Neighbourhood(models.Model):
     neighbourhood_location = models.CharField(max_length=20)
     occupants = models.IntegerField()
     admin_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    def save_hood(self):
+        self.save()
 class Profile(models.Model):
     bio = models.TextField()
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
