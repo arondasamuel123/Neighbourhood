@@ -44,6 +44,9 @@ class Profile(models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     general_location = models.CharField(max_length=20)
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    
+    def save_profile(self):
+        self.save()
 class Post(models.Model):
     post = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
