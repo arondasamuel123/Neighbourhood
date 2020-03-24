@@ -45,4 +45,11 @@ class NeighbourhoodTestCase(TestCase):
         hoods = Neighbourhood.objects.all()
         self.assertTrue(len(hoods) == 0)
         
+    def test_get_hoof_id(self):
+        self.admin_user.save_admin()
+        self.hood_one.save_hood()
+        self.hood_one.get_hood_id(self.hood_one.id)
+        hoods = Neighbourhood.objects.all()
+        self.assertTrue(len(hoods) > 0)
+        
     

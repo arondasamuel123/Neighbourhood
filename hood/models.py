@@ -32,6 +32,10 @@ class Neighbourhood(models.Model):
         self.save()
     def delete_hood(self):
         self.delete()
+    @classmethod
+    def get_hood_id(cls, id):
+        hood = Neighbourhood.objects.get(pk=id)
+        return hood
 class Profile(models.Model):
     bio = models.TextField()
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
