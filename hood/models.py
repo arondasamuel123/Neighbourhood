@@ -28,4 +28,9 @@ class Neighbourhood(models.Model):
     neighbourhood_location = models.CharField(max_length=20)
     occupants = models.IntegerField()
     admin_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Post(models.Model):
+    post = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_created = models.DateTimeField(auto_now_add=True)
     
