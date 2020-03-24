@@ -30,6 +30,8 @@ class Neighbourhood(models.Model):
     admin_id = models.ForeignKey(User, on_delete=models.CASCADE)
     def save_hood(self):
         self.save()
+    def delete_hood(self):
+        self.delete()
 class Profile(models.Model):
     bio = models.TextField()
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)

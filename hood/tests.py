@@ -36,6 +36,13 @@ class NeighbourhoodTestCase(TestCase):
         self.admin_user.save_admin()
         self.hood_one.save_hood()
         hoods = Neighbourhood.objects.all()
-        self.assertTrue(len(hoods)> 0)   
+        self.assertTrue(len(hoods)> 0)
+        
+    def test_delete_neighbourhood(self):
+        self.admin_user.save_admin()
+        self.hood_one.save_hood()
+        self.hood_one.delete_hood()
+        hoods = Neighbourhood.objects.all()
+        self.assertTrue(len(hoods) == 0)
         
     
