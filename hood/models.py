@@ -17,6 +17,9 @@ class User(AbstractUser):
     
     def save_sadmin(self):
         self.save()
+    def save_admin(self):
+        self.save()
+        
     
 class Neighbourhood(models.Model):
     neighbourhood_name = models.CharField(max_length=20)

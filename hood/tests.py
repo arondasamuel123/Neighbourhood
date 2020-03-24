@@ -15,3 +15,10 @@ class UserTestCase(TestCase):
         self.super_admin.save_sadmin()
         users = User.objects.all()
         self.assertTrue(len(users) > 0)
+        
+    def test_save_admin(self):
+        self.admin_user.save_admin()
+        users = User.objects.all()
+        self.assertTrue(len(users)> 0)
+        
+    
