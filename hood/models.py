@@ -49,6 +49,12 @@ class Profile(models.Model):
         self.save()
     def delete_profile(self):
         self.delete()
+    
+    @classmethod
+    def get_prof_id(cls, id):
+        profile = cls.objects.get(pk=id)
+        return profile
+        
         
 class Post(models.Model):
     post = models.TextField()

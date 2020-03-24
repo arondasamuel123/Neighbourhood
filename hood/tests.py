@@ -83,6 +83,16 @@ class ProfileTestCase(TestCase):
         self.profile_one.delete_profile()
         profiles = Profile.objects.all()
         self.assertTrue(len(profiles)==0)
+        
+    def test_get_prof_id(self):
+        self.admin_user.save_admin()
+        self.user_one.save_user()
+        self.hood_two.save_hood()
+        self.profile_one.save_profile()
+        self.profile_one.get_prof_id(self.profile_one.id)
+        profiles = Profile.objects.all()
+        self.assertTrue(len(profiles) > 0)
+        
            
         
     
