@@ -34,3 +34,10 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_created = models.DateTimeField(auto_now_add=True)
     
+class Business(models.Model):
+    business_name = models.CharField(max_length=20)
+    business_email = models.CharField(max_length=20)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    
