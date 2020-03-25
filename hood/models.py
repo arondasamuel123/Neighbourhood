@@ -88,8 +88,13 @@ class Department(models.Model):
         (AUTHORITIES, 'authorities'),
     ]
     contact_number = models.IntegerField()
+    dept_name = models.CharField(max_length=20, default="NULL")
     neighbourhood= models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
     dept_type = models.CharField(max_length=20, choices=DEPT_TYPE_CHOICES, default=HEALTH)
+    
+    def save_dept(self):
+        self.save()
+        
     
 
 

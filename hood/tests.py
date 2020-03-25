@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import User, Neighbourhood, Profile, Post,Business
+from .models import User, Neighbourhood, Profile, Post,Business, Department
 
 
 class UserTestCase(TestCase):
@@ -136,6 +136,19 @@ class BusinessModelTestCase(TestCase):
         self.business_one.delete_business()
         businesses = Business.objects.all()
         self.assertTrue(len(businesses)== 0)
+        
+class DepartmentModelTestCase(TestCase):
+    def setUp(self):
+        self.admin_user = User(username="jack123",email="jack@gmail.com",name="Jack Doe", role_type="ADMIN",is_superuser=False, is_staff=True, is_active=True)
+        self.hood_two = Neighbourhood(neighbourhood_name="Langata Estate", neighbourhood_location="Langata", occupants="100",admin_id=self.admin_user)
+        self.dept_one = Department(contact_number="0791019910", neighbourhood=self.hood_two, dept_type="health", dept_name="Langata Hospital")
+    def test_save_department(self):
+        self.admin_user.save_admin()
+        self.hood_two.save_hood()
+        self.dept_one.save_dept()
+        departments = Department.objects.all()
+        self.assertTrue(len(departments) > 0)
+        
         
          
         
