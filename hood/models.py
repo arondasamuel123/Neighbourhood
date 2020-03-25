@@ -73,6 +73,9 @@ class Business(models.Model):
     business_email = models.CharField(max_length=20)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def save_business(self):
+        self.save()
 
 class Department(models.Model):
     HEALTH = 'health'
