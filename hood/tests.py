@@ -128,6 +128,14 @@ class BusinessModelTestCase(TestCase):
         
         businesses = Business.objects.all()
         self.assertTrue(len(businesses)> 0)
+    def test_delete_business(self):
+        self.user_one.save_user()
+        self.admin_user.save_admin()
+        self.hood_two.save_hood()
+        self.business_one.save_business()
+        self.business_one.delete_business()
+        businesses = Business.objects.all()
+        self.assertTrue(len(businesses)== 0)
         
          
         
