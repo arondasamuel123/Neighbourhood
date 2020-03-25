@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import User, Neighbourhood, Profile
+from .models import User, Neighbourhood, Profile, Post
 
 
 class UserTestCase(TestCase):
@@ -100,6 +100,20 @@ class ProfileTestCase(TestCase):
         self.profile_one.save_profile()
         self.profile_one.update_bio("This is a new bio")
         self.assertTrue(self.profile_one.bio=="This is a new bio")
+        
+class PostModelTestCase(TestCase):
+    
+    def setUp(self):
+         self.user_one = User(username="john123", email="john@gmail.com", name="John Doe", role_type="USER",is_superuser=False, is_staff=False, is_active=True)
+         self.post_one = Post(post="I love my neighbourhood", user=self.user_one)
+         
+    def test_save_post(self):
+        self.user_one.save_user()
+        self.post_one.save_post()
+        posts = Post.objects.all()
+        self.assertTrue(len(posts)> 0)
+        
+        
         
         
            
