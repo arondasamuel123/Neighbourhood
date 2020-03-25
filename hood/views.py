@@ -7,7 +7,10 @@ from .serializers import UserSerializer
 
 
 class UserList(APIView):
-    
+    def get(self, request, format=None):
+        all_users = User.objects.all()
+        serializers = UserSerializer(all_users,many=True)
+        return Response(serializers.data)
     def post(self, request,format=None):
         serializers = UserSerializer(data=request.data)
         if serializers.is_valid():
