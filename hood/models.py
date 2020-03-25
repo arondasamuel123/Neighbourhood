@@ -54,6 +54,10 @@ class Profile(models.Model):
     def get_prof_id(cls, id):
         profile = cls.objects.get(pk=id)
         return profile
+    def update_bio(self, bio):
+        self.bio = bio
+        self.save()
+        
         
         
 class Post(models.Model):

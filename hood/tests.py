@@ -93,6 +93,15 @@ class ProfileTestCase(TestCase):
         profiles = Profile.objects.all()
         self.assertTrue(len(profiles) > 0)
         
+    def test_update_bio(self):
+        self.admin_user.save_admin()
+        self.user_one.save_user()
+        self.hood_two.save_hood()
+        self.profile_one.save_profile()
+        self.profile_one.update_bio("This is a new bio")
+        self.assertTrue(self.profile_one.bio=="This is a new bio")
+        
+        
            
         
     
