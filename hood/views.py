@@ -9,7 +9,6 @@ from django.http import Http404
 
 
 class UserList(APIView):
-    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_users = User.objects.all()
         serializers = UserSerializer(all_users,many=True)
