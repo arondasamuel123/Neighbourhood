@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Neighbourhood,Profile,Department
+from .models import User, Neighbourhood,Profile,Department, Business
 from .serializers import UserSerializer, HoodSerializer, PostSerializer, ProfileSerializer,BusinessSerializer, DepartmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
@@ -79,7 +79,11 @@ class CreateBusinessView(APIView):
             return Neighbourhood.objects.get(pk=pk)
         except Neighbourhood.DoesNotExist:
             return Http404
-        
+    def get(self,request,pk, format=None):
+        businesses = Business.objects.filter(neighbourhood_id=pk)
+        serializers = BusinessSerializer(businesses, many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+       
     def post(self, request, pk, format=None):
         hood = self.get_hood(pk)
         serializers = BusinessSerializer(data=request.data)
