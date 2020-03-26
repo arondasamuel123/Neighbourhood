@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
 
 class User(AbstractUser):
@@ -27,7 +28,7 @@ class Neighbourhood(models.Model):
     neighbourhood_name = models.CharField(max_length=20)
     neighbourhood_location = models.CharField(max_length=20)
     occupants = models.IntegerField()
-    admin_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     def save_hood(self):
         self.save()
     def delete_hood(self):

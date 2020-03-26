@@ -3,10 +3,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, HoodSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserList(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request, format=None):
         all_users = User.objects.all()
         serializers = UserSerializer(all_users,many=True)
@@ -17,3 +19,14 @@ class UserList(APIView):
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class HoodList(APIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request, format=None):
+        serializers = HoodSerializer(data=request.data)
+        if serializers.is_valid():
+            
+           serializers.save(admin=request.user)
+           return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+            
