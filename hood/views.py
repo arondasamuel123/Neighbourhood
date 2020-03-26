@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User, Neighbourhood
-from .serializers import UserSerializer, HoodSerializer
+from .serializers import UserSerializer, HoodSerializer, PostSerializer, ProfileSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
 
@@ -51,4 +51,25 @@ class SingleHoodList(APIView):
         hood = self.get_hood(pk)
         serializers = HoodSerializer(hood)
         return Response(serializers.data, status=status.HTTP_200_OK)
+    
+    def post(self, request, pk, format=None):
+        hood = self.get_hood(pk)
+        serializers = ProfileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save(user=request.user, neighbourhood=hood)
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    
+class CreatePostView(APIView):
+    permission_classes  = (IsAuthenticated,)
+    def post(self, request, format=None):
+        serializers = PostSerializer(data=request.data)
+        if serializers.is_valid():
+            
+            serializers.save(user=request.user)
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+    
     
