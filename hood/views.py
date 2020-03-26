@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Neighbourhood
+from .models import User, Neighbourhood,Profile
 from .serializers import UserSerializer, HoodSerializer, PostSerializer, ProfileSerializer,BusinessSerializer, DepartmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
@@ -59,6 +59,7 @@ class SingleHoodList(APIView):
             serializers.save(user=request.user, neighbourhood=hood)
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
         
     
 class CreatePostView(APIView):
@@ -100,6 +101,28 @@ class CreateDepartmentView(APIView):
             serializers.save(neighbourhood=hood)
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class EditProfileView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get_profile(self, pk):
+        try:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
+            return Http404
+    def get_hood(self, id):
+        try:
+            return Neighbourhood.objects.get(id=id)
+        except Neighbourhood.DoesNotExist:
+            return Http404
+    def put(self, request,pk,id,format=None):
+        profile = self.get_profile(pk)
+        hood = self.get_hood(id)
+        serializers = ProfileSerializer(profile,data=request.data)
+        if serializers.is_valid():
+            serializers.save(user=request.user, neighbourhood=hood)
+            return Response(serializers.data)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
         
             
     
