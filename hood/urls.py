@@ -10,5 +10,6 @@ urlpatterns = [
     path('api/v1/create_hood',views.HoodList.as_view()),
     path('api/v1/hoods', views.AllHoodsList.as_view()),
     path('api/v1/view_hood/<int:pk>', views.SingleHoodList.as_view()),
-    path('api/v1/post', views.CreatePostView.as_view())
+    path('api/v1/post', views.CreatePostView.as_view()),
+    path('api/v1/create_business/<int:pk>', views.CreateBusinessView.as_view())
 ]

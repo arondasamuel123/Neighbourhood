@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User,Neighbourhood,Post,Profile
+from .models import User,Neighbourhood,Post,Profile,Business
 from django.contrib.auth.hashers import make_password
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,6 +49,24 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('bio','general_location', 'user', 'neighbourhood')
+        
+class BusinessSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), # Or User.objects.filter(active=True)
+        required=False, 
+        allow_null=True, 
+        default=None
+    )
+    neighbourhood = serializers.PrimaryKeyRelatedField(
+        queryset=Neighbourhood.objects.all(),
+        required=False,
+        allow_null=True,
+        default=None
+    )
+    
+    class Meta:
+        model = Business
+        fields = ('business_name', 'business_email', 'user', 'neighbourhood')
         
     
 
