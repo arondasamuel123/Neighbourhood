@@ -11,7 +11,7 @@ Samuel Aronda
 
 
 ## DB diagram
-
+![Neighborhood (2)](https://user-images.githubusercontent.com/31355212/77662118-84108080-6f8c-11ea-9f48-02eb8194fc8d.png)
 
 
 
