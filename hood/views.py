@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User, Neighbourhood
-from .serializers import UserSerializer, HoodSerializer, PostSerializer, ProfileSerializer,BusinessSerializer
+from .serializers import UserSerializer, HoodSerializer, PostSerializer, ProfileSerializer,BusinessSerializer, DepartmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
 
@@ -85,6 +85,20 @@ class CreateBusinessView(APIView):
         if serializers.is_valid():
             serializers.save(user=request.user,neighbourhood=hood)
             return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+class CreateDepartmentView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get_hood(self, pk):
+        try:
+            return Neighbourhood.objects.get(pk=pk)
+        except Neighbourhood.DoesNotExist:
+            return Http404
+    def post(self,request,pk,format=None):
+        hood = self.get_hood(pk)
+        serializers = DepartmentSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save(neighbourhood=hood)
+            return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
         
             
