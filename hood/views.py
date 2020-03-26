@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import User, Neighbourhood
 from .serializers import UserSerializer, HoodSerializer
 from rest_framework.permissions import IsAuthenticated
+from django.http import Http404
 
 
 class UserList(APIView):
@@ -38,3 +39,16 @@ class AllHoodsList(APIView):
         all_hoods = Neighbourhood.objects.all()
         serializers = HoodSerializer(all_hoods,many=True)
         return Response(serializers.data)
+    
+class SingleHoodList(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get_hood(self, pk):
+        try:
+            return Neighbourhood.objects.get(pk=pk)
+        except Neighbourhood.DoesNotExist:
+            return Http404
+    def get(self,request,pk,format=None):
+        hood = self.get_hood(pk)
+        serializers = HoodSerializer(hood)
+        return Response(serializers.data, status=status.HTTP_200_OK)
+    

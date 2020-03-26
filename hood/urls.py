@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/',TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v1/create_hood',views.HoodList.as_view()),
-    path('api/v1/hoods', views.AllHoodsList.as_view())
+    path('api/v1/hoods', views.AllHoodsList.as_view()),
+    path('api/v1/view_hood/<int:pk>', views.SingleHoodList.as_view())
 ]
