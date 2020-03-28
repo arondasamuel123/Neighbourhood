@@ -19,7 +19,7 @@ class HoodSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Neighbourhood
-        fields = ('neighbourhood_name', 'neighbourhood_location', 'occupants', 'admin')
+        fields = ('id', 'neighbourhood_name', 'neighbourhood_location', 'occupants', 'admin')
         
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
@@ -30,7 +30,7 @@ class PostSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Post
-        fields = ('post','user','post_created')
+        fields = ('id','post','user','post_created')
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
@@ -48,7 +48,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Profile
-        fields = ('bio','general_location', 'user', 'neighbourhood')
+        fields = ('id','bio','general_location', 'user', 'neighbourhood')
         
 class BusinessSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
