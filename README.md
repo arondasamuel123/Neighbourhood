@@ -9,6 +9,10 @@ This is an API backend created for Django Independent Project week 4. This API m
 
 Samuel Aronda
 
+## Frontend Repo
+https://github.com/Libb521/Neighbourhood
+## Deployed app
+https://clever-varahamihira-6d0357.netlify.com/
 
 ## DB diagram
 
@@ -60,6 +64,7 @@ Samuel Aronda
     GET /api/v1/hoods - View all Neighbourhoods
     GET /api/v1/view_hood/<int:pk> - View specific Neighbourhood
     POST /api/v1/post- Create a blog post
+    GET /api/v1/post- View all blog posts
     POST /api/v1/create_business/<int:pk>- Create a business for a specific neighbourhood
     GET /api/v1/create_business/<int:pk>- View all business in specific neighbourhood
     POST /api/v1/create_dept/<int:pk>- Create departments for a specific neighbourhood
