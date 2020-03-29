@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Neighbourhood,Profile,Department, Business
+from .models import User, Neighbourhood,Profile,Department, Business, Post
 from .serializers import UserSerializer, HoodSerializer, PostSerializer, ProfileSerializer,BusinessSerializer, DepartmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
@@ -63,6 +63,10 @@ class SingleHoodList(APIView):
     
 class CreatePostView(APIView):
     permission_classes  = (IsAuthenticated,)
+    def get(self,request, format=None):
+        all_posts = Post.objects.all()
+        serializers = PostSerializer(all_posts, many=True)
+        return Response(serializers.data, status=status.HTTP_200_OK)
     def post(self, request, format=None):
         serializers = PostSerializer(data=request.data)
         if serializers.is_valid():
